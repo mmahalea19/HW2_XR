@@ -8,16 +8,26 @@ public class StopTracking : MonoBehaviour
     void Start()
     {
         this.MCParent=GameObject.Find("Mock");
-        this.mainCamera = Camera.FindObjectOfType<OVRCameraRig>();
+        this.mainCamera = Camera.FindObjectOfType<OVRPlayerController>();
     }
 
     public bool verticalTrack = false;
     public bool horizontalTrack = false;
     public GameObject MCParent;
-    public OVRCameraRig mainCamera;
+    public OVRPlayerController mainCamera;
     void checkButtons()
     {
-       
+        if (OVRInput.GetDown(OVRInput.Button.One))
+            {
+            verticalTrack = !verticalTrack;
+
+        }
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            horizontalTrack = !horizontalTrack;
+
+        }
+
     }
 
     void resetCamera()
@@ -30,7 +40,7 @@ public class StopTracking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        checkButtons();
 
         if (verticalTrack)
         {
