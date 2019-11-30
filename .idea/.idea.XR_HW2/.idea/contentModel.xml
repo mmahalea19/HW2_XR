@@ -9,7 +9,9 @@
       <e p="Assets" t="Include">
         <e p="MySTUFF" t="Include">
           <e p="FlyCamera.cs" t="Include" />
+          <e p="InvertTrack.cs" t="Include" />
           <e p="MoveLens.cs" t="Include" />
+          <e p="SetChild.cs" t="Include" />
           <e p="StopTracking.cs" t="Include" />
         </e>
         <e p="Oculus" t="Include">
