@@ -6,11 +6,11 @@ public class InvertTrack : MonoBehaviour
 {
     public bool stopRotation = false;
     public bool stopTranslation = false;
-    public OVRPlayerController controller;
+    public OVRCameraRig camera;
     // Start is called before the first frame update
     void Start()
     {
-        this.controller = GameObject.FindObjectOfType<OVRPlayerController>();
+        this.camera = GameObject.FindObjectOfType<OVRCameraRig>();
     }
 
     void checkButtons()
@@ -18,18 +18,18 @@ public class InvertTrack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             stopRotation=!stopRotation;
-            this.initalRotEuler = this.controller.transform.rotation.eulerAngles;
-            initialRot = this.controller.transform.rotation;
+            this.initalRotEuler = this.camera.transform.rotation.eulerAngles;
+            initialRot = this.camera.transform.localRotation;
             initialMockPos = this.transform.rotation;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
             stopTranslation=!stopTranslation;
-            initialPos = this.controller.transform.position;
+            initialPos = this.camera.transform.position;
         }
         if (Input.GetKey(KeyCode.R))
         {
-           this.controller.transform.Rotate(Vector3.up,1);
+           this.camera.transform.Rotate(Vector3.up,1);
         }
     }
 
@@ -51,17 +51,15 @@ public class InvertTrack : MonoBehaviour
 //        }
        if (stopRotation)
        {
-//           Quaternion diff = this.controller.transform.rotation * Quaternion.Inverse(initialRot);
-//           this.transform.rotation=initialMockPos*Quaternion.Inverse(diff);
-           this.controller.transform.rotation = initialRot;
-           // this.initalRotEuler = this.controller.transform.rotation.eulerAngles;
+//          
+           this.transform.rotation = Quaternion.Inverse(this.camera.transform.localRotation * Quaternion.Inverse(initialRot));
 
        }
 
         if (stopTranslation)
         {
-            Vector3 diff = this.controller.transform.position - initialPos;
-            this.transform.position -= diff;
+            this.transform.transform.position -= this.camera.transform.position - initialPos;
+
         }
 
 
