@@ -6,23 +6,23 @@ public class InvertTrack : MonoBehaviour
 {
     public bool stopRotation = false;
     public bool stopTranslation = false;
-    public OVRCameraRig camera;
+    public GameObject camera;
     // Start is called before the first frame update
     void Start()
     {
-        this.camera = GameObject.FindObjectOfType<OVRCameraRig>();
+        this.camera = GameObject.Find("CenterEyeAnchor");
     }
 
     void checkButtons()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || OVRInput.GetDown(OVRInput.Button.One))
         {
             stopRotation=!stopRotation;
             this.initalRotEuler = this.camera.transform.rotation.eulerAngles;
             initialRot = this.camera.transform.localRotation;
             initialMockPos = this.transform.rotation;
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O) || OVRInput.GetDown(OVRInput.Button.Two))
         {
             stopTranslation=!stopTranslation;
             initialPos = this.camera.transform.position;
